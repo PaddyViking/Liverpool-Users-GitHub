@@ -1,32 +1,29 @@
 #!/usr/bin/python
 import requests
 import requests_cache
+import csv
 requests_cache.install_cache("github")
 
-auth = ("PaddyViking", "65bbd523eca11c0376208a9a23e4c4dd5c8d8188")
-
 def get_user_profile(url):
-    r = requests.get(url, auth=auth)
+    r = requests.get(url)
     j = r.json()
     return j
     
 
-
-
-location = raw_input('Press enter to continue: ')
-# Confirming they want to continue
+location = raw_input('Enter which City you wish to search in: ')
+# What city they wish to recieve the users from
 def get_users(location, page):
     url = "https://api.github.com/search/users?q=location:{}&per_page=100&page={}".format(location, page)
-    r = requests.get(url, auth=auth)
+    r = requests.get(url)
     
     for user in r.json()["items"]:
 	    profile = get_user_profile(user["url"])
 
-	    f.write(u"{}|{}|{}|{}\n".format(user["login"], profile["name"], profile.get("followers"), user["html_url"]).encode("utf-8"))
+	    f.write(u"{},{},{},{},\n".format(user["login"], profile["name"], profile.get("followers"), user["html_url"]).encode("utf-8"))
     return len(r.json()["items"])
       
 
-with open("output.txt", "w") as f:
+with open("Final_Output.csv", "w") as f:
     page = 1
     while get_users(location, page):
         page = page + 1
