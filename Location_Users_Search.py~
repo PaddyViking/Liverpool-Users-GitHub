@@ -21,8 +21,7 @@ def get_users(location, page):
     
     for user in r.json()["items"]:
 	    profile = get_user_profile(user["url"])
-
-	    f.write(u"{}|{}|{}|{}\n".format(user["login"], profile["name"], profile.get("followers"), user["html_url"]).encode("utf-8"))
+	    f.write(u"{}|{}|{}|{}\n".format(profile["name"], profile.get("followers"), profile             		    ("hireable"),user["html_url"]).encode("utf-8"))
     return len(r.json()["items"])
       
 
