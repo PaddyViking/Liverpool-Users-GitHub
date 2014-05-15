@@ -28,6 +28,6 @@ with open("Final_Output.csv", "w") as f:
     while get_users(location, page):
         page = page + 1
         print page
-print "The User Data is printed in Output.txt"
+print "The User Data is printed in Final_Output.csv"
 
 
